@@ -1,15 +1,22 @@
 #include<stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <conio.h>
+#include <stdbool.h>
+
 #include "Cadastro.h"
 #include "Login.h"
+#include "Exceptions.h"
+#include "Mensagens.h"
+#include "Usuario.h"
 
-//---------------Métodos externos---------------
+//---------------Externos---------------
 struct Pessoa;
 struct Pessoa pessoas[];
 
 void VerificaAcesso(char email[], char password[]);
-void CriarPessoa(char email[], char password[]);
+void CriarPessoa(char nome[], char email[], char password[]);
+void Mensagem(char msg[], short cor, short pritOpcao);
 
 //-----------------------------------------------
 
@@ -29,7 +36,8 @@ void Inicio(){
 	
 	do{
 		short opcao = 0;
-		printf("Selecione uma opção: \n 1 - Entrar \n 2 - Cadastro \n 3 - Sair \n");
+		Mensagem("\t\t\t\t\t\tSeja bem vindo ao Max Cad\n\n\n\n", 4, 1);
+		Mensagem("Selecione uma opcao: \n 1 - Entrar \n 2 - Cadastro \n 3 - Sair \n", 0, 0);
 		scanf("%hd", &opcao);
 		
 		switch(opcao)		
@@ -46,20 +54,30 @@ void Inicio(){
 void Entrar(){
 	char email[100], password[100];
 	
-	printf("Email: \n");
+	Mensagem("\t\t\t\t\t\t\tENTRAR\n\n\n\n", 4, 1);
+	Mensagem("Email: \n", 0, 0);
 	scanf("%s", &email);
-	printf("Password: \n");
+	Mensagem("Password: \n", 0, 0);
 	scanf("%s", &password);
 	
 	VerificaAcesso(email, password);
 }
 
 void Cadastro(){
-	char email[100], password[100];
+	char email[100], password[100], nome[100];
 	
-	printf("Digite seu email: \n");
+	Mensagem("\t\t\t\t\t\t\tCADASTRO\n\n\n\n", 4, 1);
+	
+	Mensagem("Digite seu nome: \n", 0, 0);
+	scanf(" %[^\n]", &nome);
+	fflush(stdin);
+
+	Mensagem("Digite seu email: \n", 0, 0);
 	scanf("%s", &email);
-	printf("Digite seu password: \n");
+	fflush(stdin);
+	
+	Mensagem("Digite seu password: \n", 0, 0);
 	scanf("%s", &password);
-	CriarPessoa(email, password);
+	fflush(stdin);
+	CriarPessoa(nome, email, password);
 }

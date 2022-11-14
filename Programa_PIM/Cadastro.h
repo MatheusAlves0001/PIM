@@ -2,20 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#include <stdbool.h>
 
-#define RED \033[1;31m
-#define YELLOW \033[1;33m
-#define GREEN \033[0;32m
-#define RESET_COLOR \033[0m
-
-#define CAD_MAX 5
+#define CAD_MAX 1
 
 #ifndef EXTERNS
 #define EXTERNS 1
 
+//---------------Externos---------------
+void Excessoes(char* msg);
+void Mensagem(char msg[], short cor, short pritOpcao);
+//-----------------------------------------------
+
 extern struct Pessoa {
 	
 	int id;
+	char nome[100];
 	char email[100];
 	char password[100];
 	
@@ -24,39 +26,25 @@ extern struct Pessoa {
 extern struct Pessoa pessoas[CAD_MAX];
 
 int GerId();
-extern void CriarPessoa(char email[], char password[]);
+extern void CriarPessoa(char nome[], char email[], char password[]);
 
-
-
-void CriarPessoa(char email[], char password[]){
+void CriarPessoa(char nome[], char email[], char password[]){
 	int novoId = GerId();
 	
-	if(novoId <= CAD_MAX){
+	if(novoId != -1){
 		
-		pessoas[novoId].id = novoId;
-		strcpy(pessoas[novoId].email, email);
-		strcpy(pessoas[novoId].password, password);
+		pessoas[novoId - 1].id = novoId;
+		strcpy(pessoas[novoId - 1].nome, nome);
+		strcpy(pessoas[novoId - 1].email, email);
+		strcpy(pessoas[novoId - 1].password, password);
 		
-		system("cls");
+		char msg[100];
+		sprintf(msg, "Nome: %s, email: %s, password: %s, ID: %d", pessoas[novoId - 1].nome , pessoas[novoId - 1].email, pessoas[novoId - 1].password, novoId);
+		Mensagem(msg, 3, 2);
 		
-		printf("\033[0;32m");
-		printf("email: %s, password: %s, ID: %d \n", pessoas[novoId].email, pessoas[novoId].password, novoId);
-		printf("\033[0m");
-		getch();
-		
-		system("cls");
 	}
 	else{
-		system("cls");
-		
-		printf("\033[1;31m");
-		printf("O número de registros foi excedido!\n");
-		printf("Pressione uma tecla para continuar.");
-		printf("\033[0m");
-		getch();
-		
-		system("cls");
-		
+		Excessoes("Numero de cadastros foi excedido!");
 	}
 }
 
@@ -65,9 +53,13 @@ int GerId(){
 	
 	for(int i = 0; i < CAD_MAX; i++){
 		if(pessoas[i].id != 0){
-			qtd++;                      
+			qtd++;
 		}
 	}
+	
+	if(qtd >= CAD_MAX)
+		return -1;
+	
 	return (qtd + 1);
 }
 
