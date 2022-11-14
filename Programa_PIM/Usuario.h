@@ -40,6 +40,10 @@ void UInicio(){
 			system("cls"); 
 			exit(0);
 			break;
+		
+		default:
+			Mensagem("Erro!", 0, 2);
+			break;
 	}
 }
 
