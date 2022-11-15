@@ -3,6 +3,7 @@
 #include <string.h>
 #include <conio.h>
 
+#include "Cadastro.h"
 
 //---------------Métodos externos---------------
 struct Pessoa pessoas[];
@@ -10,9 +11,9 @@ void Excessoes(char* msg);
 void Usuario(int id);
 //-----------------------------------------------
 
-extern void VerificaAcesso(char email[], char password[]);
+extern void VerificaAcesso(char *email, char *password);
 
-void VerificaAcesso(char email[], char password[]){
+void VerificaAcesso(char *email, char *password){
 	
 	for(int i = 0; i < CAD_MAX; i++){
 		

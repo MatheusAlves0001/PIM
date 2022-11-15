@@ -9,14 +9,16 @@
 #include "Exceptions.h"
 #include "Mensagens.h"
 #include "Usuario.h"
+#include "Util.h"
 
 //---------------Externos---------------
 struct Pessoa;
 struct Pessoa pessoas[];
 
-void VerificaAcesso(char email[], char password[]);
+void VerificaAcesso(char *email, char *password);
 void CriarPessoa(char nome[], char email[], char password[]);
 void Mensagem(char msg[], short cor, short pritOpcao);
+char* MascararSenha();
 
 //-----------------------------------------------
 
@@ -58,7 +60,8 @@ void Entrar(){
 	Mensagem("Email: \n", 0, 0);
 	scanf("%s", &email);
 	Mensagem("Password: \n", 0, 0);
-	scanf("%s", &password);
+	
+	strcpy(password, MascararSenha());
 	
 	VerificaAcesso(email, password);
 }

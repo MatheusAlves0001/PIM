@@ -3,7 +3,7 @@
 #include <string.h>
 #include <conio.h>
 
-#include "Cadastro.h"
+//#include "Cadastro.h"
 
 //---------------Externos---------------
 struct Pessoa;
@@ -24,7 +24,7 @@ void Usuario(int id){
 void UInicio(){
 	short opcao = 0;
 	
-	Mensagem("Digite \n\n 1 - Novo documento \n 2 - Editar documento \n 3 - Sair", 0, 0);
+	Mensagem("Os documentos \n\n 1 - Novo documento \n 2 - Editar documento \n 3 - Sair", 0, 0);
 	scanf("%d", &opcao);
 	
 	switch(opcao){
