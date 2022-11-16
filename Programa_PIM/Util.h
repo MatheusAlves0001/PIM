@@ -3,7 +3,13 @@
 #include <string.h>
 #include <conio.h>
 
+//---------------Externos---------------
+struct OptCabecalo;
 extern char* MascararSenha();
+extern void GerCabecalhos(struct OptCabecalo* opt);
+//-----------------------------------------------
+
+
 char* MascararSenha(){
 	
 	int tamanho = 0;
@@ -35,4 +41,12 @@ char* MascararSenha(){
 	strcpy(retorno, password);
 	
 	return retorno;
+}
+
+
+void GerCabecalhos(struct OptCabecalo* opt){
+	char msg[100];
+	
+	sprintf(msg, "\t\t\t\t\t\%s %s!!\n\n", opt->Titulo, opt->Complemento);
+	Mensagem(msg, 4, 1);
 }

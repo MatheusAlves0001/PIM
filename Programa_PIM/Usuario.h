@@ -3,33 +3,40 @@
 #include <string.h>
 #include <conio.h>
 
-//#include "Cadastro.h"
 
 //---------------Externos---------------
-struct Pessoa;
-struct Pessoa pessoas[];
+struct Colaborador exColaborador[];
+void Excessoes(char* msg);
+void Mensagem(char* msg, short cor, short pritOpcao);
+struct OptCabecalo;
+void GerCabecalhos(struct OptCabecalo* opt);
+void Clientes(int id);
 //-----------------------------------------------
 
 extern void Usuario(int id);
-void GerCabecalho(int id);
+
 void UInicio();
 
 void Usuario(int id){
 	
-	GerCabecalho(id);
-	UInicio();
+	struct OptCabecalo opt;
+	strcpy(opt.Titulo, "Bem vindo");
+	strcpy(opt.Complemento, exColaborador[id - 1].nome);
+	GerCabecalhos(&opt);
+	
+	UInicio(id);
 	
 }
 
-void UInicio(){
+void UInicio(int id){
 	short opcao = 0;
 	
-	Mensagem("Os documentos \n\n 1 - Novo documento \n 2 - Editar documento \n 3 - Sair", 0, 0);
+	Mensagem("Selecione uma opcao \n\n 1 - Clientes \n 2 - Relatorios \n 3 - Sair", 0, 0);
 	scanf("%d", &opcao);
 	
 	switch(opcao){
 		case 1: 
-			//ir para a tela de cadastro	
+			Clientes(id);
 			break;
 		
 		case 2: 
@@ -42,15 +49,10 @@ void UInicio(){
 			break;
 		
 		default:
-			Mensagem("Erro!", 0, 2);
+			Excessoes("Erro!");
 			break;
 	}
 }
 
-void GerCabecalho(int id){
-	char msg[100];
-	sprintf(msg, "\t\t\t\t\t\tSeja bem vindo %s!!\n\n", pessoas[id - 1].nome);
-	Mensagem(msg, 4, 1);
-}
 
 

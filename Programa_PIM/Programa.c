@@ -4,22 +4,21 @@
 #include <conio.h>
 #include <stdbool.h>
 
-#include "Cadastro.h"
-#include "Login.h"
 #include "Exceptions.h"
 #include "Mensagens.h"
-#include "Usuario.h"
+#include "Repositorio.h"
 #include "Util.h"
+#include "Cadastro.h"
+#include "Login.h"
+#include "Usuario.h"
+#include "CadCliente.h"
 
 //---------------Externos---------------
-struct Pessoa;
-struct Pessoa pessoas[];
-
-void VerificaAcesso(char *email, char *password);
-void CriarPessoa(char nome[], char email[], char password[]);
-void Mensagem(char msg[], short cor, short pritOpcao);
+struct Colaborador exColaborador[];
+void VerificaAcesso(char* email, char* password);
+void CriarPessoa(char* nome, char* email, char* password);
+void Mensagem(char* msg, short cor, short pritOpcao);
 char* MascararSenha();
-
 //-----------------------------------------------
 
 
