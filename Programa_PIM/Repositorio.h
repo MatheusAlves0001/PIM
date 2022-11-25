@@ -1,7 +1,5 @@
-#include <stdbool.h>
-
-#define CAD_MAX 1
-#define CAD_MAX_CLI 1
+#define CAD_MAX 10
+#define CAD_MAX_CLI 100
 
 //------------Colaborador------------
 typedef struct Colaborador {
@@ -11,8 +9,14 @@ typedef struct Colaborador {
 	char email[100];
 	char password[100];
 	
+	
 } Colaborador;
 
+typedef struct ColaboradorLogado {
+	
+	Colaborador InfoColabLogado;
+	
+} ColaboradorLogado;
 
 //------------Cliente------------
 typedef struct ClienteEndereco{
@@ -29,15 +33,17 @@ typedef struct ClienteEndereco{
 	char EmpresaOndeTrabalha[100],
 		 Cargo[100];
 	
-	float Salario;
+	double Salario;
 		 
 } ClienteProfissao;
 
- typedef struct Cliente{
+typedef struct Cliente{
 	
+	int Id;
+	int IdcolabResp;
 	char Nome[100];
 	short idade;
-	bool Sexo;
+	char Sexo[9];
 	
 	ClienteEndereco Endereco;
 	ClienteProfissao Profissao;
@@ -51,7 +57,7 @@ typedef struct ClienteEndereco{
 	 	 resposta[50];
 }Pergunta;
 
- typedef struct Titulo{
+typedef struct Titulo{
 	
 		char titulo[50];
 		struct Pergunta Questao[50];
@@ -59,6 +65,7 @@ typedef struct ClienteEndereco{
 }Titulo;	
 
 typedef struct Formulario{
+		int ClienteResponsavelId;
 		struct Titulo Titulos[50];
 } Formulario;
 
@@ -68,9 +75,25 @@ extern struct OptCabecalo{
 		 Complemento[50];
 }OptCabecalo;
 
+//------------Tabela------------
+
+typedef struct TabLinhas{
+		short LinhaId;
+		char Valor[50];
+} TabLinhas;
+
+typedef struct TabCabecalho{
+		char Valor[50];
+}TabCabecalho;
+
+extern struct Tabela{
+	TabCabecalho Cabecalho[5];
+	TabLinhas Linhas[50];
+} Tabela;
 
 //------------Ex. Colaborador------------
 extern struct Colaborador exColaborador[CAD_MAX];
+extern struct ColaboradorLogado exColaboradorLogado;
 
 //------------Ex. Cliente------------
 extern struct Cliente clientes[CAD_MAX_CLI];

@@ -30,8 +30,7 @@ void CriarPessoa(char* nome, char* email, char* password){
 		
 	}
 	else{
-		char ex[] = "Numero de cadastros foi excedido!";
-		Excessoes(ex);
+		Excessoes("Numero de cadastros foi excedido!");
 	}
 }
 

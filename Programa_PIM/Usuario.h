@@ -3,53 +3,52 @@
 #include <string.h>
 #include <conio.h>
 
-
 //---------------Externos---------------
-struct Colaborador exColaborador[];
+struct ColaboradorLogado exColaboradorLogado;
 void Excessoes(char* msg);
 void Mensagem(char* msg, short cor, short pritOpcao);
 struct OptCabecalo;
 void GerCabecalhos(struct OptCabecalo* opt);
-void Clientes(int id);
+void Clientes();
 //-----------------------------------------------
 
-extern void Usuario(int id);
+extern void Usuario();
 
 void UInicio();
 
-void Usuario(int id){
+void Usuario(){
 	
 	struct OptCabecalo opt;
 	strcpy(opt.Titulo, "Bem vindo");
-	strcpy(opt.Complemento, exColaborador[id - 1].nome);
+	strcpy(opt.Complemento, exColaboradorLogado.InfoColabLogado.nome);
 	GerCabecalhos(&opt);
 	
-	UInicio(id);
+	UInicio();
 	
 }
 
-void UInicio(int id){
-	short opcao = 0;
+void UInicio(){
+	char opcao;
 	
 	Mensagem("Selecione uma opcao \n\n 1 - Clientes \n 2 - Relatorios \n 3 - Sair", 0, 0);
-	scanf("%d", &opcao);
+	opcao = getch();
 	
 	switch(opcao){
-		case 1: 
-			Clientes(id);
+		case '1': 
+			Clientes();
 			break;
 		
-		case 2: 
-			//ir para a tela de edição	
+		case '2': 
+			Excessoes("Tela ainda noo existe!");
 			break;
 			
-		case 3: 
+		case '3': 
 			system("cls"); 
 			exit(0);
 			break;
 		
 		default:
-			Excessoes("Erro!");
+			Excessoes("Opcao invalida!");
 			break;
 	}
 }

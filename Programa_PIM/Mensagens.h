@@ -1,13 +1,17 @@
 #include<stdio.h>
 #include <stdlib.h>
-#include <locale.h>
 #include <conio.h>
-#include <stdbool.h>
 #include <string.h>
 
-extern void Mensagem(char* msg, short cor, short pritOpcao);
-char* DefineCor(short cor);
+//---------------Externos---------------
+struct Tabela;
+struct OptCabecalo;
+//-----------------------------------------------
 
+extern void Mensagem(char* msg, short cor, short pritOpcao);
+extern void GerTabelas(struct Tabela *);
+
+char* DefineCor(short cor);
 
 void Mensagem(char msg[], short cor, short pritOpcao){
 		
@@ -16,14 +20,14 @@ void Mensagem(char msg[], short cor, short pritOpcao){
 				{
 					printf(DefineCor(cor));
 					printf("%s\n", msg);
-				}
-					break;
+				}break;
+					
 				case 1:{
 					system("cls");
 					printf(DefineCor(cor));
 					printf("%s\n", msg);
-				}
-					break;
+				}break;
+					
 				case 2: {
 					
 					system("cls");
@@ -34,14 +38,14 @@ void Mensagem(char msg[], short cor, short pritOpcao){
 					printf("\033[0m");
 					getch();
 					system("cls");
-				}
-					break;
-			
+				}break;
+				
 				default:{
 					printf("%s", msg);
 				}
 		}
 }
+
 
 char* DefineCor(short cor){
 	char *escolha = (char*)malloc(sizeof *escolha * 10),
@@ -62,6 +66,50 @@ char* DefineCor(short cor){
 	}
 	
 	return escolha;
+}
+
+void GerTabelas(struct Tabela* tab){
+	int contador = 0;
+	do{
+		
+		if(strlen(tab->Cabecalho[contador].Valor) != 0){
+			
+			printf("%s\t\t\t", tab->Cabecalho[contador].Valor);
+			contador++;			
+		}
+		else
+			contador = 0;
+			
+	}while(contador > 0);
+	
+	printf("\n");
+	
+	short idLinhaAtual = 0;
+	do{
+		
+		if(strlen(tab->Linhas[contador].Valor) != 0){
+			
+			if(tab->Linhas[contador].LinhaId == idLinhaAtual){
+				
+				printf("%s\t\t\t", tab->Linhas[contador].Valor);
+				contador++;	
+				
+			}
+			else{
+				
+				printf("\n");
+				printf("%s\t\t\t", tab->Linhas[contador].Valor);
+				
+			}
+					
+			idLinhaAtual = tab->Linhas[contador].LinhaId;
+		}
+		else
+			contador = 0;
+			
+	}while(contador > 0);
+	
+	getch();
 }
 		
 

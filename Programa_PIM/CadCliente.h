@@ -5,38 +5,42 @@
 #include <stdbool.h>
 
 //---------------Externos---------------
-struct Colaborador exColaborador[];
+struct ColaboradorLogado exColaboradorLogado;
 struct Formulario exFormulario;
 struct Titulo exTitulo;
 struct Pergunta exPergunta;
 struct OptCabecalo;
-void Usuario(int id);
+void Usuario();
 void GerCabecalhos(struct OptCabecalo* opt);
+struct Cliente clientes[CAD_MAX_CLI];
+void Excessoes(char* ex);
+struct Tabela;
+void GerTabelas(struct Tabela *);
 //--------------------------------------
 
-extern void Clientes(int id);
-void Cadastrar();
-void EditarCadastro();
+extern void Clientes();
 
-void Clientes(int id){
+void Cadastrar();
+void ExibirClientesCadastrados();
+int GerCliId();
+void GerCliente();
+
+void Clientes(){
 	
-	
-	
-	short escolha = 0;
+	char escolha;
 	do{
 		struct OptCabecalo opt;
 		strcpy(opt.Titulo, "Clientes");
 		GerCabecalhos(&opt);
 		
-		char msg[] = "Selecione uma opcao \n\n 1 - Novo cadastro \n 2 - Editar cadastro \n 3 - Voltar";
-		Mensagem(msg, 0, 0);
-		scanf("%d", &escolha);
+		Mensagem("Selecione uma opcao \n\n 1 - Novo cadastro \n 2 - Clientes cadastrados \n 3 - Voltar", 0, 0);
+		escolha = getch();
 		
 		switch(escolha){
-			case 1:Cadastrar(); break;
-			case 2: EditarCadastro(); break;
-			case 3: Usuario(id); break;
-			default: Usuario(id);				
+			case '1':Cadastrar(); break;
+			case '2': ExibirClientesCadastrados(); break;
+			case '3': Usuario(); break;
+			default: Excessoes("Opcao invalida!"); 				
 		}
 		
 	}while(escolha != 0);
@@ -54,10 +58,12 @@ void Cadastrar(){
 	strcpy(exFormulario.Titulos[1].Questao[0].pergunta, "Endereco");
 	strcpy(exFormulario.Titulos[1].Questao[1].pergunta, "Estado");
 	strcpy(exFormulario.Titulos[1].Questao[2].pergunta, "Cidade");
+	strcpy(exFormulario.Titulos[1].Questao[3].pergunta, "CEP");
 	
 	strcpy(exFormulario.Titulos[2].titulo, "Informacoes sobre a ocupacao do cliente");
 	strcpy(exFormulario.Titulos[2].Questao[0].pergunta, "Empresa onde trabalha");
 	strcpy(exFormulario.Titulos[2].Questao[1].pergunta, "Cargo");
+	strcpy(exFormulario.Titulos[2].Questao[2].pergunta, "Salario");
 	
 	short contador = 0, qtdTitulos = 0;
 	do{
@@ -98,17 +104,85 @@ void Cadastrar(){
 		}
 	}
 	
-	char msg[100];
-		sprintf(msg, "Cliente %s cadastrado com sucesso!", exFormulario.Titulos[0].Questao[0].resposta);
-		Mensagem(msg, 3, 2);
+	GerCliente();
 }
 
-
-void EditarCadastro(){
+void GerCliente(){
 	
+	int idCli = GerCliId();
+	
+	if(idCli != -1){
+	
+		clientes[idCli - 1].Id = idCli;
+		clientes[idCli - 1].IdcolabResp = exColaboradorLogado.InfoColabLogado.id;
+		
+		strcpy(clientes[idCli - 1].Nome, exFormulario.Titulos[0].Questao[0].resposta);
+		clientes[idCli - 1].idade = atoll(exFormulario.Titulos[0].Questao[1].resposta);
+		strcpy(clientes[idCli - 1].Sexo, exFormulario.Titulos[0].Questao[2].resposta);
+		
+		strcpy(clientes[idCli - 1].Endereco.Endereco, exFormulario.Titulos[1].Questao[0].resposta);
+		strcpy(clientes[idCli - 1].Endereco.Estado, exFormulario.Titulos[1].Questao[1].resposta);
+		strcpy(clientes[idCli - 1].Endereco.Cidade, exFormulario.Titulos[1].Questao[2].resposta);
+		strcpy(clientes[idCli - 1].Endereco.CEP, exFormulario.Titulos[1].Questao[3].resposta);
+		
+		strcpy(clientes[idCli - 1].Profissao.EmpresaOndeTrabalha, exFormulario.Titulos[2].Questao[0].resposta);
+		strcpy(clientes[idCli - 1].Profissao.Cargo, exFormulario.Titulos[2].Questao[1].resposta);
+		clientes[idCli - 1].Profissao.Salario = atof(exFormulario.Titulos[2].Questao[2].resposta);
+		
+		char msg[100];
+		sprintf(msg, "Cliente %s cadastrado com sucesso!", clientes[idCli - 1].Nome);
+		Mensagem(msg, 3, 2);
+		
+	}
+	else{
+		Excessoes("Numero de clientes cadastrados foi excedido!");
+	}
 }
 
+void ExibirClientesCadastrados(){
+	
+	int contCli = 0;
+	system("cls");
+	do{
+		printf("\n\n");
+		if(clientes[contCli].Id != 0){
+			printf("Nome: %s \n", clientes[contCli].Nome);
+			printf("Sexo: %s \n", clientes[contCli].Sexo);
+			printf("Idade: %d \n", clientes[contCli].idade);
+			printf("Cargo: %s \n", clientes[contCli].Profissao.Cargo);
+			printf("__________________________________________");
+			contCli++;
+		}
+		else{
+			contCli = 0;
+		}
+		
+		
+	}while(contCli > 0);
+	
+	Mensagem("[ESC] para voltar",0 ,0);
+	
+	char teclaPressionada;
+	teclaPressionada = getch();
+	
+	if(teclaPressionada != 27)
+		ExibirClientesCadastrados();
+}
 
+int GerCliId(){
+	short qtd = 0;
+	
+	for(int i = 0; i < CAD_MAX_CLI; i++){
+		if(clientes[i].Id != 0){
+			qtd++;
+		}
+	}
+	
+	if(qtd >= CAD_MAX_CLI)
+		return -1;
+	
+	return (qtd + 1);
+}
 
 
 
