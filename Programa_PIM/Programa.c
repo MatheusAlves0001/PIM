@@ -12,6 +12,7 @@
 #include "Login.h"
 #include "Usuario.h"
 #include "CadCliente.h"
+#include "GeradorDeRelatorio.h"
 
 //---------------Externos---------------
 struct Colaborador exColaborador[];
@@ -31,7 +32,7 @@ int main(){
 	setlocale(LC_ALL,"Portuguese");
 	
 	//TEMPORÁRIO
-	//GERADMIN();
+	GERADMIN();
 	
 	Inicio();
 	return 0;

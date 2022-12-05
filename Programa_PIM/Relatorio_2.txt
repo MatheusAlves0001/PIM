@@ -1,0 +1,20 @@
+				Relatório gerado no dia e hora 04/12/2022 21:20:49 por ADM
+
+
+
+
+Nome: 123
+Sexo: 1
+Idade: b
+Cargo: 123
+----------------------------------
+Nome: 4756
+Sexo: 765
+Idade: b
+Cargo: 5685
+----------------------------------
+Nome: 545
+Sexo: 53
+Idade: b
+Cargo: 53
+----------------------------------

@@ -10,6 +10,7 @@ void Mensagem(char* msg, short cor, short pritOpcao);
 struct OptCabecalo;
 void GerCabecalhos(struct OptCabecalo* opt);
 void Clientes();
+void GeraRelatorioClientesCadastrados();
 //-----------------------------------------------
 
 extern void Usuario();
@@ -39,7 +40,8 @@ void UInicio(){
 			break;
 		
 		case '2': 
-			Excessoes("Tela ainda noo existe!");
+			GeraRelatorioClientesCadastrados();
+			Usuario();
 			break;
 			
 		case '3': 
@@ -49,6 +51,7 @@ void UInicio(){
 		
 		default:
 			Excessoes("Opcao invalida!");
+			Usuario();
 			break;
 	}
 }
