@@ -33,7 +33,9 @@ void Clientes(){
 		strcpy(opt.Titulo, "Clientes");
 		GerCabecalhos(&opt);
 		
-		Mensagem("Selecione uma opcao \n\n 1 - Novo cadastro \n 2 - Clientes cadastrados \n 3 - Voltar", 0, 0);
+		Mensagem("Selecione uma opcao \n\n ", 0, 0);
+		Mensagem(" 1 - Novo cadastro \n 2 - Clientes cadastrados \n\n", 2, 0);
+		Mensagem(" 3 - Voltar", 1, 0);
 		escolha = getch();
 		
 		switch(escolha){
@@ -48,7 +50,7 @@ void Clientes(){
 }
 
 void Cadastrar(){
-	
+	system("cls");
 	strcpy(exFormulario.Titulos[0].titulo, "Informacoes sobre o cliente");
 	strcpy(exFormulario.Titulos[0].Questao[0].pergunta, "Nome");
 	strcpy(exFormulario.Titulos[0].Questao[1].pergunta, "idade");
@@ -81,9 +83,9 @@ void Cadastrar(){
 	for(short titulo = 0; titulo < qtdTitulos; titulo++){
 		
 		short qtdQuestoes = 0;
-			  
-		Mensagem(exFormulario.Titulos[titulo].titulo, 0, 0);
 		
+		printf("\n");
+		Mensagem(exFormulario.Titulos[titulo].titulo, 2, 0);
 			do{
 				
 				if(strlen(exFormulario.Titulos[titulo].Questao[contador].pergunta) != 0){
@@ -98,6 +100,8 @@ void Cadastrar(){
 		
 		for(short questao = 0; questao < qtdQuestoes; questao++){
 			
+			printf("\033[0m");
+			printf(" \n-");
 			Mensagem(exFormulario.Titulos[titulo].Questao[questao].pergunta, 0, 0);
 			scanf(" %[^\n]", exFormulario.Titulos[titulo].Questao[questao].resposta);
 			fflush(stdin);
@@ -142,6 +146,7 @@ void GerCliente(){
 void ExibirClientesCadastrados(){
 	
 	int contCli = 0;
+	printf("\033[0m");
 	system("cls");
 	do{
 		printf("\n\n");

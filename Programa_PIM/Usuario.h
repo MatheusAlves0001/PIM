@@ -31,7 +31,9 @@ void Usuario(){
 void UInicio(){
 	char opcao;
 	
-	Mensagem("Selecione uma opcao \n\n 1 - Clientes \n 2 - Relatorios \n 3 - Sair", 0, 0);
+	Mensagem("Selecione uma opcao: ", 0, 0);
+	Mensagem("\n\n 1 - Clientes \n 2 - Relatorios \n\n ", 2, 0);
+	Mensagem(" 3 - Sair", 1, 0);
 	opcao = getch();
 	
 	switch(opcao){

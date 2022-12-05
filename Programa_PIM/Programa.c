@@ -44,7 +44,9 @@ void Inicio(){
 	char opcao;
 	do{
 		Mensagem("\t\t\t\t\t\tSeja bem vindo ao Max Cad\n\n\n\n", 4, 1);
-		Mensagem("Selecione uma opcao: \n 1 - Entrar \n 2 - Cadastro \n 3 - Sair \n", 0, 0);
+		Mensagem("Selecione uma opcao: ", 0, 0);
+		Mensagem("\n 1 - Entrar \n 2 - Cadastro \n\n", 2, 0);
+		Mensagem(" 3 - Sair \n", 1, 0);
 		opcao = getch();
 		
 		switch(opcao)		
