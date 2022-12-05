@@ -32,7 +32,7 @@ int main(){
 	setlocale(LC_ALL,"Portuguese");
 	
 	//TEMPORÁRIO
-	GERADMIN();
+	//GERADMIN();
 	
 	Inicio();
 	return 0;
